@@ -1,22 +1,67 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html" />
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html" />
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html" />
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html" />
+<link rel="import" href="../../bower_components/paper-input/paper-input.html" />
+<link rel="import" href="../../bower_components/paper-button/paper-button.html" />
+<link rel="import" href="../../bower_components/iron-form/iron-form.html" />
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html" />
 
 <dom-module id="app-comp">
     <template>
+        <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" />
         <style>
 
         </style>
 
-        <div class="div">
-            <p>Name: {{name}}</p>
-            <p>Age: {{age}}</p>
-            <p>Is Married: {{isMarried}}</p>
-            <p>Location: {{location.name}}</p>
-            <p>Skill Name: 
-                <div>{{skillSet.map(skill, i)=> {
-                    return <div>{{skill.name}}</div>    
-                }}}</div>
-            </p>
-        </div>
+        <iron-icon icon="add" id="add"></iron-icon>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>SapId</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items={{users}}>
+                    <tr>
+                        <td>{{item.name}}</td>
+                        <td>{{item.sapId}}</td>
+                        <td>
+                            <iron-icon icon="clear" data-set$={{item}} on-click="_handleDelete"></iron-icon>
+                            <iron-icon icon="create" on-click="_handleEdit"></iron-icon>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <paper-dialog id="modal">
+            <h2>Scrolling</h2>
+            <paper-dialog-scrollable>
+                <iron-form id="form">
+                    <form>
+                        <paper-input type="number" label="Enter SapId" name="sapId" required
+                            error-message="Sapid is required" value={{sapId}}></paper-input>
+                        <paper-input label="ENter Name" name="name" required error-message="Name is required"
+                            value={{name}}></paper-input>
+                    </form>
+                </iron-form>
+                <br />
+            </paper-dialog-scrollable>
+            <div class="buttons">
+                <paper-button on-click="_handleSubmit">OK</paper-button>
+                <paper-button dialog-dismiss>Cancel</paper-button>
+            </div>
+        </paper-dialog>
+
+
+        <iron-ajax id="ajax" handle-as="json" on-response="_handleResponse" on-error="_handleError"
+            content-type="application/json"></iron-ajax>
+        <paper-toast id="toast" text={{message}}></paper-toast>
+
     </template>
     <script>
 
@@ -25,50 +70,103 @@
 
             static get properties() {
                 return {
+
+                    action: {
+                        type: String,
+                        value: 'List'
+                    },
+                    users: {
+                        type: Array,
+                        value: []
+                    },
                     name: {
                         type: String
                     },
-                    age: {
+                    sapId: {
                         type: Number
                     },
-                    isMarried: {
-                        type: Boolean
-                    },
-                    location: {
-                        type: Object
-                    },
-                    skillSet: {
-                        type: Array
+                    message: {
+                        type: String
                     }
                 };
+
             }
 
             constructor() {
                 super();
 
-                console.log("Constructor")
-                this.name = 'Bheema';
-                this.age = 11;
-                this.isMarried = false;
-                this.location = { name: 'Bangalore' };
-                this.skillSet = [{ name: 'React', price: 100 }, { name: 'Polymer', price: 200 }, { name: 'Lit-Element', price: 300 }]
+            }
+            ready() {
+                super.ready();
+                console.log("in ready")
             }
             connectedCallback() {
                 super.connectedCallback();
-                console.log("connectedcallback")
+                this._makeAjax("http://localhost:3000/users", "get", null)
+                
+                this.$.add.addEventListener('click', this._handleCreate)
             }
 
-            attributeChangedCallback() {
-                super.attributeChangedCallback();
-                console.log("attributeChangedCallback")
+            _handleResponse = (event) => {
+                console.log("in success", event);
+                switch (this.action) {
+                    case 'List':
+                        this.users = event.detail.response;
+                        break;
+                    case 'Create':
+                        this.action = "List";
+                        this.message = 'Added Successfully!!';
+                        this.$.toast.open();
+                        this._makeAjax("http://localhost:3000/users", "get", null);
+                        break;
+                    case 'Delete':
+                        this.action = "List";
+                        this.message = 'Deleted Successfully!!';
+                        this.$.toast.open();
+                        this._makeAjax("http://localhost:3000/users", "get", null);
+                        break;
+                    default: break;
+                }
             }
-            disconnectedCallback() {
-                super.disconnectedCallback();
-                console.log("disconnected calllback")
+
+            _handleError = (event) => {
+                console.log("in error", event);
+            }
+            _handleCreate = (event) => {
+                this.$.modal.open();
+                this.action = "Create";
             }
 
+            _handleSubmit = (event) => {
+                if (this.$.form.validate()) {
+                    let obj = { name: this.name, sapId: this.sapId };
+                    this._makeAjax("http://localhost:3000/users", "post", obj);
+                    this.$.form.reset();
+                }
+            }
 
+            _makeAjax = (url, method, postObj) => {
+                const ajax = this.$.ajax;
+                ajax.method = method;
+                ajax.url = url;
+                ajax.body = postObj ? JSON.stringify(postObj) : undefined;
+                ajax.generateRequest();
 
+            }
+
+            _handleDelete = (event) => {
+                console.log(event.model.item);
+                let confrm = confirm("Are you sure you want to delete ?");
+                if (confrm) {
+                    this.action = 'Delete';
+                    this._makeAjax(`http://localhost:3000/users/${event.model.item.id}`, "DELETE", null);
+                }
+
+            }
+
+            // disconnectedCallback() {
+            //     this.$.add.removeEventListener('click', this._handleCreate)
+            // }
         }
 
         customElements.define(AppComp.is, AppComp)

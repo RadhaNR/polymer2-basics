@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" />
         <div>
             <p>List of Employee</p>
-            <iron-icon icon="add-circle-outline"></iron-icon>
+            <iron-icon icon="add-circle-outline" on-click="_createForm" on-click="_handleCreate"></iron-icon>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -38,22 +38,31 @@
                     </template>
                 </tbody>
             </table>
-            <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation"
-                with-backdrop opened>
+
+            <paper-dialog id="modal">
+                <br />
+                <h3>Edit Employee Details</h3>
                 <paper-dialog-scrollable>
-                    <h3>Edit Employee Details</h3>
-                    <iron-form>
+                    <iron-form id="formModal">
                         <form>
-                            <paper-input label="Enter SapId" />
-                            <paper-input label="Enter Name" />
-                            <paper-button on-click="_hanldeSubmit">Submit</paper-button>
+                            <paper-input type="number" label="Enter SapId" required error-message="SapId is Required"
+                                name="sapId" value={{sapId}}></paper-input>
+                            <paper-input label="Enter Name" required error-message="Name is Required" name="name"
+                                value={{name}}></paper-input>
                         </form>
                     </iron-form>
+                    <br />
                 </paper-dialog-scrollable>
+                <div class="buttons">
+                    <paper-button on-click="_hanldeSubmit">Submit</paper-button>
+                    <paper-button dialog-dismiss>Cancel</paper-button>
+                </div>
             </paper-dialog>
 
+
             <paper-toast text={{message}} id="toast"></paper-toast>
-            <iron-ajax id="ajax" handle-as="json" on-response="_handleResponse" on-error="_handleError" />
+            <iron-ajax id="ajax" handle-as="json" on-response="_handleResponse" on-error="_handleError"
+                content-type="application/json" />
             <!-- <iron-ajax id="ajax" url="http://localhost:3000/users" method="get" content-type="application/json"
                 on-response="_handleResponse" on-error="_handleError" /> -->
 
@@ -136,8 +145,13 @@
                         value: 'List'
                     },
                     message: {
-                        type: String,
-
+                        type: String
+                    },
+                    name: {
+                        type: String
+                    },
+                    sapId: {
+                        type: Number
                     }
                 }
             }
@@ -197,9 +211,16 @@
                         break;
                     case 'Delete':
                         this.message = 'Successfully Deleted!!!';
-
                         this.makeAjaxCall("http://localhost:3000/users", "get", null, 'List');
                         this.$.toast.open();
+                        break;
+                    case 'Create':
+                        this.makeAjaxCall("http://localhost:3000/users", "get", null, 'List');
+                        this.$.formModal.reset();
+                        break;
+                    case 'Update':
+                        this.makeAjaxCall("http://localhost:3000/users", "get", null, 'List');
+                        this.$.formModal.reset();
                         break;
                     default: break;
                 }
@@ -210,16 +231,31 @@
             }
 
             _handleEdit = (event) => {
-                console.log(event.model.item)
+                console.log(event.model.item);
+                const data = event.model.item;
+                this.$.modal.open();
+                this.name = data.name;
+                this.sapId = data.sapId;
+                this.action = "Update";
             }
             _handleDelete = (event) => {
                 console.log("in delete", event.model.item);
                 this.makeAjaxCall(`http://localhost:3000/users/${event.model.item.id}`, "DELETE", null, 'Delete')
 
             }
+            _createForm = () => {
+                this.action = "Create";
+                this.$.modal.open();
+            }
 
             _hanldeSubmit = (event) => {
-                console.log(event)
+                console.log()
+                if (this.$.formModal.validate()) {
+                    let postObj = { name: this.name, sapId: this.sapId };
+                    this.makeAjaxCall("http://localhost:3000/users/","POST", postObj, this.action)
+
+                }
+
             }
 
             makeAjaxCall = (url, method, postObj, action) => {
@@ -227,8 +263,10 @@
                 const ajax = this.$.ajax;
                 ajax.url = url;
                 ajax.method = method;
+                ajax.body = postObj ? JSON.stringify(postObj) : undefined;
                 ajax.generateRequest();
             }
+
 
 
         }
