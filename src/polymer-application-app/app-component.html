@@ -1,0 +1,76 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+
+<dom-module id="app-comp">
+    <template>
+        <style>
+
+        </style>
+
+        <div class="div">
+            <p>Name: {{name}}</p>
+            <p>Age: {{age}}</p>
+            <p>Is Married: {{isMarried}}</p>
+            <p>Location: {{location.name}}</p>
+            <p>Skill Name: 
+                <div>{{skillSet.map(skill, i)=> {
+                    return <div>{{skill.name}}</div>    
+                }}}</div>
+            </p>
+        </div>
+    </template>
+    <script>
+
+        class AppComp extends Polymer.Element {
+            static get is() { return 'app-comp'; }
+
+            static get properties() {
+                return {
+                    name: {
+                        type: String
+                    },
+                    age: {
+                        type: Number
+                    },
+                    isMarried: {
+                        type: Boolean
+                    },
+                    location: {
+                        type: Object
+                    },
+                    skillSet: {
+                        type: Array
+                    }
+                };
+            }
+
+            constructor() {
+                super();
+
+                console.log("Constructor")
+                this.name = 'Bheema';
+                this.age = 11;
+                this.isMarried = false;
+                this.location = { name: 'Bangalore' };
+                this.skillSet = [{ name: 'React', price: 100 }, { name: 'Polymer', price: 200 }, { name: 'Lit-Element', price: 300 }]
+            }
+            connectedCallback() {
+                super.connectedCallback();
+                console.log("connectedcallback")
+            }
+
+            attributeChangedCallback() {
+                super.attributeChangedCallback();
+                console.log("attributeChangedCallback")
+            }
+            disconnectedCallback() {
+                super.disconnectedCallback();
+                console.log("disconnected calllback")
+            }
+
+
+
+        }
+
+        customElements.define(AppComp.is, AppComp)
+    </script>
+</dom-module>
