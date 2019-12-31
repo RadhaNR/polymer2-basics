@@ -8,6 +8,7 @@
 <link rel="import" href="../../bower_components/iron-form/iron-form.html" />
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html" />
 
+
 <dom-module id="app-comp">
     <template>
         <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" />
@@ -19,6 +20,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <td>No</td>
                     <td>Name</td>
                     <td>SapId</td>
                     <td>Actions</td>
@@ -27,19 +29,20 @@
             <tbody>
                 <template is="dom-repeat" items={{users}}>
                     <tr>
+                        <td>[[_getIndex(index)]]</td>
                         <td>{{item.name}}</td>
                         <td>{{item.sapId}}</td>
                         <td>
                             <iron-icon icon="clear" data-set$={{item}} on-click="_handleDelete"></iron-icon>
-                            <iron-icon icon="create" on-click="_handleEdit"></iron-icon>
+                            <iron-icon icon="create" data-set$={{item}} on-click="_handleEdit"></iron-icon>
                         </td>
                     </tr>
                 </template>
             </tbody>
         </table>
 
-        <paper-dialog id="modal">
-            <h2>Scrolling</h2>
+        <paper-dialog id="modal" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+            <h2>User Information</h2>
             <paper-dialog-scrollable>
                 <iron-form id="form">
                     <form>
@@ -87,6 +90,9 @@
                     },
                     message: {
                         type: String
+                    },
+                    id: {
+                        type: Number
                     }
                 };
 
@@ -98,17 +104,15 @@
             }
             ready() {
                 super.ready();
-                console.log("in ready")
             }
             connectedCallback() {
                 super.connectedCallback();
                 this._makeAjax("http://localhost:3000/users", "get", null)
-                
+
                 this.$.add.addEventListener('click', this._handleCreate)
             }
 
             _handleResponse = (event) => {
-                console.log("in success", event);
                 switch (this.action) {
                     case 'List':
                         this.users = event.detail.response;
@@ -125,12 +129,20 @@
                         this.$.toast.open();
                         this._makeAjax("http://localhost:3000/users", "get", null);
                         break;
+                    case 'Update':
+                        this.action = "List";
+                        this.message = 'Updated Successfully!!';
+                        this.$.toast.open();
+                        this._makeAjax("http://localhost:3000/users", "get", null);
+                        break;
                     default: break;
                 }
             }
 
             _handleError = (event) => {
                 console.log("in error", event);
+                this.message = event.detail.error;
+                this.$.toast.open()
             }
             _handleCreate = (event) => {
                 this.$.modal.open();
@@ -138,10 +150,22 @@
             }
 
             _handleSubmit = (event) => {
+                let url = "http://localhost:3000/users";
                 if (this.$.form.validate()) {
                     let obj = { name: this.name, sapId: this.sapId };
-                    this._makeAjax("http://localhost:3000/users", "post", obj);
-                    this.$.form.reset();
+                    let method;
+                    switch (this.action) {
+                        case 'Create':
+                            method = 'POST';
+                            break;
+                        case 'Update':
+                            method = 'PUT';
+                            url = `${url}/${parseInt(this.id)}/`;
+                            break;
+                        default: break;
+                    }
+                    this._makeAjax(url, method, obj);
+                    this.$.modal.close();
                 }
             }
 
@@ -155,7 +179,6 @@
             }
 
             _handleDelete = (event) => {
-                console.log(event.model.item);
                 let confrm = confirm("Are you sure you want to delete ?");
                 if (confrm) {
                     this.action = 'Delete';
@@ -164,6 +187,19 @@
 
             }
 
+            _handleEdit = (event) => {
+                let data = event.model.item;
+
+                this.$.modal.open();
+                this.name = data.name;
+                this.sapId = data.sapId;
+                this.id = (data.id);
+                this.action = 'Update';
+            }
+
+            _getIndex = (index) => {
+                return index + 1;
+            }
             // disconnectedCallback() {
             //     this.$.add.removeEventListener('click', this._handleCreate)
             // }
