@@ -3,7 +3,7 @@
 <dom-module id="child-element">
     <template>
         child-element
-        <p>Name: {{name}}</p>
+        <p>Name: {{name}} --- {{firstName}}</p>
         <paper-button raised on-click="_handleClick">Update</paper-button>
 
     </template>
@@ -16,7 +16,7 @@
                 return {
                     name: {
                         type: String,
-                        notify: false, // data flow will not happen to child-to-parent
+                        notify: true, // data flow will not happen to child-to-parent
                         readOnly: false
                     }
                 }

@@ -5,10 +5,10 @@
     <template>
         <p>One Way binding - Data will flow from child-parent </p>
         <p>Parent</p>
-        Name : {{name}}
+        Name : {{name}} -- {{firstName}}
         <paper-button raised on-click="_handleClick">Update</paper-button>
         <hr />
-        <child-element name="{{name}}"></child-element>
+        <child-element name="{{name}}" first-name={{firstName}}></child-element>
     </template>
     <script>
         class ParentElement extends Polymer.Element {
@@ -20,6 +20,10 @@
                     name: {
                         type: String,
                         value: 'Seeta'
+                    },
+                    firstName: {
+                        type: String,
+                        value: 'Radha Nanjundaswamy'
                     }
                 }
             }
