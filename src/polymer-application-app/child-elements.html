@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/paper-button/paper-button.html" />
+
+<dom-module id="child-elements">
+    <template>
+        Child element
+        <paper-button raised on-click="_handleClick">Fire Get Custom Event</paper-button>
+        <paper-button raised on-click="_handleDelete">Fire Delete Custom Event</paper-button>
+    </template>
+    <script>
+        class ChildElements extends Polymer.Element {
+            static get is() {
+                return 'child-elements'
+            }
+            constructor() {
+                super();
+                console.log("child element");
+            }
+            _handleClick = () => {
+                this.dispatchEvent(new CustomEvent('get-users', { detail: { data: 'get from message from me' }, bubbles: true, composed: true }))
+            }
+
+            _handleDelete = () => {
+                this.dispatchEvent(new CustomEvent('delete-user', { detail: { id: 1 }, bubbles: true, composed: true }))
+            }
+        }
+        customElements.define(ChildElements.is, ChildElements);
+    </script>
+</dom-module>

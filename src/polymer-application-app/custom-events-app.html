@@ -1,0 +1,60 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/paper-button/paper-button.html" />
+<link rel="import" href="../../bower_components/polymer/lib/mixins/gesture-event-listeners.html" />
+
+<link rel="import" href="child-elements.html" />
+<link rel="import" href="another-child.html" />
+
+<dom-module id="custom-event-app">
+    <template>
+        This is Parent
+
+        <hr />
+        <child-elements></child-elements>
+        <another-child></another-child>
+        <hr />
+        <paper-button on-track="_handleGestureEvents" raised>Gesture Events</paper-button>
+        {{message}}
+        <hr />
+        <paper-button on-tap="_handleGestureTapEvents" raised>Gesture Tap Events</paper-button>
+    </template>
+    <script>
+        class CustomEventApp extends Polymer.GestureEventListeners(Polymer.Element) {
+            static get is() {
+                return 'custom-event-app'
+            }
+            ready() {
+                super.ready();
+                this.addEventListener('get-users', (event) => {
+                    console.log(event.detail)
+                });
+                this.addEventListener('delete-user', this.handleEvent);
+            }
+
+            handleEvent = (event) => {
+                console.log(event.detail.id)
+            }
+
+            _handleGestureEvents = (event) => {
+                console.log(event.detail.state);
+                switch (event.detail.state) {
+                    case 'start':
+                        this.message = 'Tracking started!';
+                        break;
+                    case 'track':
+                        this.message = 'Tracking in progress... ' +
+                            event.detail.x + ', ' + event.detail.y;
+                        break;
+                    case 'end':
+                        this.message = 'Tracking ended!';
+                        break;
+                }
+            }
+
+            _handleGestureTapEvents = (event)=> {
+                console.log(event.type)
+            }
+        }
+        customElements.define(CustomEventApp.is, CustomEventApp);
+    </script>
+</dom-module>

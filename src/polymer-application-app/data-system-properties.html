@@ -1,0 +1,116 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html" />
+<link rel="import" href="../../bower_components/paper-button/paper-button.html" />
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html" />
+
+<dom-module id="data-system-props">
+    <template>
+        <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <p>Name: {{name}}</p>
+        <p>Age: {{age}}</p>
+        <p>isMarried: {{isMarried}}</p>
+        <p>Location: {{location.name}}, Code: {{location.code}}</p>
+        <paper-button raised on-click="_handleUpdate">Update Object</paper-button>
+        <iron-icon icon="add" data-set$={{item}} on-click="_handleAdd"></iron-icon>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Name</td>
+                    <td>Code</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items={{skillSet}}>
+                    <tr>
+                        <td>[[index]]</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.code}}</td>
+                        <td>
+                            <iron-icon icon="clear" data-set$={{index}} on-click="_handleDelete"></iron-icon>
+                            <iron-icon icon="create" data-set$={{item}} on-click="_handleEdit"></iron-icon>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <hr />
+        <paper-button raised on-click="_handleClick">Update</paper-button>
+        <paper-button raised on-click="_handleDelete">Delete Item</paper-button>
+
+    </template>
+    <script>
+        class DataSystemProps extends Polymer.Element {
+            static get is() {
+                return 'data-system-props';
+            }
+            static get properties() {
+                return {
+                    name: {
+                        type: String,
+                        value: 'Rama'
+                    },
+                    age: {
+                        type: Number,
+                        value: Math.random()
+                    },
+                    isMarried: {
+                        type: Boolean,
+                        value: true
+                    },
+                    location: {
+                        type: Object,
+                        value: {
+                            name: 'Bangalore',
+                            code: 1324
+                        }
+                    },
+                    skillSet: {
+                        type: Array,
+                        value: [{ name: 'Polymer', code: 111 }, { name: 'ReactJs', code: 222 }]
+                    }
+                }
+            }
+
+            _handleClick = () => {
+                console.log(this)
+                this.name = 'Rama' + Math.random();
+                this.age = Math.random();
+                this.isMarried = !this.isMarried;
+            }
+
+            _handleUpdate = () => {
+                // this.location.name =  'Punne' + Math.random();
+
+                // this.set('location.name', 'Punne' + Math.random());
+                // this.set('location.code', Math.random());
+
+                // Batched Property update
+                this.setProperties({
+                    'location.name': 'Punne' + Math.random(),
+                    'location.code': Math.random()
+                })
+            }
+
+            _handleAdd = () => {
+                // this.skillSet.push({ name: 'Angular', code: Math.random() });
+
+                // array mutation methods - > 
+                //push(path, item1, [..., itemN])
+                // pop(path)
+                // unshift(path, item1, [..., itemN])
+                // shift(path)
+                // splice(path, index, removeCount, [item1, ..., itemN])
+
+
+                this.push('skillSet', { name: 'Angular', code: Math.random() })
+            }
+            _handleDelete = () => {
+                //this.splice('skillSet', 1, event.model.index)
+                this.pop('skillSet', 1);
+            }
+        }
+        customElements.define(DataSystemProps.is, DataSystemProps);
+    </script>
+</dom-module>

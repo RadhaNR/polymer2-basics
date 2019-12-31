@@ -1,0 +1,29 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html" />
+
+<dom-module id="child-element">
+    <template>
+        <p>child-element</p>
+        Name: {{name}}
+        <paper-button raised on-click="_handleClick">Update</paper-button>
+    </template>
+    <script>
+        class ChildElement extends Polymer.Element {
+            static get properties() {
+                return {
+                    name: {
+                        type: String,
+                        notify: true // data change will flow back to parent with {{}} in parent
+                    }
+                }
+            }
+            static get is() {
+                return 'child-element';
+            }
+            _handleClick=()=> {
+                this.name = Math.random();
+            }
+        }
+        customElements.define(ChildElement.is, ChildElement);
+    </script>
+</dom-module>

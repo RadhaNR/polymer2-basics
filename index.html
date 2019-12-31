@@ -1,27 +1,43 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>polymer-application</title>
-    <meta name="description" content="polymer-application description">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <!-- See https://goo.gl/OOhYW5 -->
-    <link rel="manifest" href="/manifest.json">
+  <title>polymer-application</title>
+  <meta name="description" content="polymer-application description">
 
-    <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-    <link rel="import" href="/bower_components/neon-animation/neon-animation.html" />
-    
+  <!-- See https://goo.gl/OOhYW5 -->
+  <link rel="manifest" href="/manifest.json">
 
-    <link rel="import" href="/src/polymer-application-app/polymer-application-app.html">
-    <link rel="import" href="/src/polymer-application-app/app-component.html">
-    <link rel="import" href="/src/polymer-application-app/custom-element.html">
-    <link rel="import" href="/src/polymer-application-app/demo-app.html">
+  <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+  <link rel="import" href="/bower_components/neon-animation/neon-animation.html" />
 
-  </head>
-  <body>
-    <app-comp></app-comp>
-    
-  </body>
+
+  <link rel="import" href="/src/polymer-application-app/polymer-application-app.html" />
+  <link rel="import" href="/src/polymer-application-app/app-component.html" />
+  <!-- <link rel="import" href="/src/polymer-application-app/custom-element.html" /> -->
+  <link rel="import" href="/src/polymer-application-app/demo-app.html" />
+  <link rel="import" href="/src/polymer-application-app/shadow-dom-app.html" />
+  <link rel="import" href="/src/polymer-application-app/custom-events-app.html" />
+  <!-- <link rel="import" href="/src/polymer-application-app/child-element.html" /> -->
+  <link rel="import" href="/src/polymer-application-app/another-child.html" />
+  <link rel="import" href="/src/polymer-application-app/data-system-properties.html" />
+  <link rel="import" href="/src/polymer-application-app/arry-mutable-data.html" />
+  <!-- <link rel="import" href='/src/polymer-application-app/two-way-binding/parent-element.html'/> -->
+  <!-- <link rel="import" href='/src/polymer-application-app/one-way-binding-downward/parent-element.html'/> -->
+  <link rel="import" href="/src/polymer-application-app/one-way-binding-upward/parent-element.html" />
+</head>
+
+<body>
+
+  <!-- <shadow-dom-app></shadow-dom-app>
+    <app-comp></app-comp> -->
+  <!-- <custom-event-app></custom-event-app> -->
+  <!-- <data-system-props></data-system-props> -->
+  <!-- <mutable-data></mutable-data> -->
+<parent-element></parent-element>
+</body>
+
 </html>

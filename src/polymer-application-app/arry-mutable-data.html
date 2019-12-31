@@ -1,0 +1,68 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html" />
+<link rel="import" href="../../bower_components/paper-button/paper-button.html" />
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html" />
+<link rel="import" href="../../bower_components/polymer/lib/mixins/mutable-data.html" />
+
+<dom-module id="mutable-data">
+    <template>
+        {{location.name}}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Name</td>
+                    <td>Code</td>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items={{skillSet}}>
+                    <tr>
+                        <td>[[index]]</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.code}}</td>
+
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <hr />
+        <paper-button raised on-click="_handleAdd">Add</paper-button>
+        <paper-button raised on-click="_handleDelete">Delete Item</paper-button>
+
+    </template>
+    <script>
+        class MutableData extends Polymer.MutableData(Polymer.Element) {
+            static get is() {
+                return 'mutable-data';
+            }
+            static get properties() {
+                return {
+                    location: {
+                        type: Object,
+                        value: {
+                            name: 'Halc'
+                        }
+                    },
+                    skillSet: {
+                        type: Array,
+                        value: [{ name: 'Polymer', code: 111 }, { name: 'ReactJs', code: 222 }]
+                    }
+                }
+            }
+
+
+            _handleAdd = () => {
+                //this.push('skillSet', { name: 'Angular', code: Math.random() });
+                this.skillSet.push({ name: 'Angular', code: Math.random() });
+                this.notifyPath('skillSet');
+            }
+            _handleDelete = () => {
+                // this.pop('skillSet', 1);
+                this.location.name = Math.random();
+                this.notifyPath('location.name')
+            }
+        }
+        customElements.define(MutableData.is, MutableData);
+    </script>
+</dom-module>
