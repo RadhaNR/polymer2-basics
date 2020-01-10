@@ -1,0 +1,39 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="./base-class.html" />
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html" />
+
+<dom-module id="child-class">
+
+    <script>
+        class ChildClass extends BaseClass {
+            static get is() {
+                return 'child-class';
+            }
+
+            static get template() {
+                return `
+                Child ELement<hr/>
+                <paper-button raised on-click="handleClick">Click</paper-button>
+                  
+                `;
+            }
+
+            handleClick = (e) => {
+                const a = 123;
+                let fName = "Geeta";
+                const data = { name1: "Seeta", sapId: 13124 };
+                const [,obj2] = [{ name1: "Seeta", sapId: 13124 }, {name1: "Demo", sapId:123456}];
+                let { sapId } = data;
+                //console.log(a, fName, sapId, obj2)
+                //console.log(`Name:${fName}`)
+                this.getName(fName);
+                this.getName(fName, 'Nanjundaswamy');
+            }
+
+            getName=(fName, lName = 'N')=> {
+                console.log(`${fName} ${lName}`);
+            }
+        }
+        customElements.define(ChildClass.is, ChildClass);
+    </script>
+</dom-module>

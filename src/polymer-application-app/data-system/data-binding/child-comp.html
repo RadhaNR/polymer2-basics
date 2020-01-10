@@ -1,0 +1,38 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html" />
+
+<link rel="import" href="/bower_components/paper-button/paper-button.html" />
+
+<dom-module id="child-comp">
+    <template>
+        <div>
+            <p>In CHild Component</p>
+            <p>First Name: [[nameProp]]</p>
+            <p>Age: {{age1}}</p>
+            <paper-button raised on-click="_handleChange">Change</paper-button>
+        </div>
+    </template>
+    <script>
+        class ChildComp extends Polymer.Element {
+            static get is() {
+                return 'child-comp';
+            }
+            static get properties() {
+                return {
+                    nameProp: {
+                        type: String,
+                        notify: true
+                    },
+                    age1: {
+                        type: Number,
+                        notify: true
+                    }
+                }
+            }
+            _handleChange = () => {
+                this.nameProp = "Child " + Math.random();
+                this.age1 = "Child " + Math.random();
+            }
+        }
+        customElements.define(ChildComp.is, ChildComp);
+    </script>
+</dom-module>

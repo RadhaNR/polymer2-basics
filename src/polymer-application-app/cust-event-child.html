@@ -1,0 +1,27 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html" />
+<link rel="import" href="/bower_components/paper-button/paper-button.html" />
+
+<dom-module id="cust-event-child">
+    <template>
+        Test - Child
+        <paper-button raised on-click="handleClick">Click</paper-button>
+    </template>
+    <script>
+        class CustEvent1 extends Polymer.Element {
+            static get is() {
+                return 'cust-event-child';
+            }
+
+            handleClick = () => {
+                this.dispatchEvent(new CustomEvent('get-data', {
+                    detail: {
+                        message: 'Hello world'
+                    },
+                    bubbles: true,
+                    composed: true
+                }))
+            }
+        }
+        customElements.define(CustEvent1.is, CustEvent1);
+    </script>
+</dom-module>

@@ -1,0 +1,198 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html" />
+<link rel="import" href="/bower_components/polymer/lib/elements/dom-repeat.html" />
+<link rel="import" href="/bower_components/paper-button/paper-button.html" />
+
+<dom-module id="observable-change">
+    <template>
+        <!-- <p>Name: {{name}}</p>
+        <p>Age: {{age}}</p>
+        <p>Is Married: {{_checkIsMarried(isMarried)}}</p>
+
+        <paper-button raised on-click="_handleUpdate">Update Details</paper-button>
+        <hr />
+        <div>
+            <div><u>Address: </u></div>
+            <div>City: {{address.city}}</div>
+            <div>Street: {{address.street}}</div>
+            <div>PinCode: {{address.pincode}}</div>
+        </div>
+        <br />-->
+        <div>
+            Language:
+            <template is="dom-repeat" items={{language}}>
+                <div>{{item.name}}- {{item.code}}</div>
+            </template>
+        </div>
+
+
+        <!-- <paper-button raised on-click="_handleDelete">Get from Array</paper-button> -->
+        <p>Is Married: {{isMarried}}</p>
+        <p>SapId: {{sapId}}</p>
+        <p>Name: {{name}}</p>
+        <hr />
+        <p>First Name: {{firstName}}</p>
+        <p>Last Name: {{lastName}}</p>
+        <p>FulName: {{fullName}}</p>
+        <paper-button raised on-click="_handleChange">CHange SapId</paper-button>
+        <hr />
+        <div>
+            <div><u>Address: </u></div>
+            <div>City: {{address.city}}</div>
+            <div>Street: {{address.street}}</div>
+            <div>PinCode: {{address.pincode}}</div>
+        </div>
+        <paper-button raised on-click="_handleObjArryUpdate">Update Obj & Arry Details</paper-button>
+    </template>
+    <script>
+        class ObservableChange extends Polymer.Element {
+            static get is() {
+                return 'observable-change';
+            }
+
+            static get observers() {
+                return ['nameChanged(sapId, isMarried, name)', 'nameChange(firstName, lastName)', '_addressChange(address.*)', '_languageLength(language.length)']
+            }
+
+
+            static get properties() {
+                return {
+                    name: {
+                        type: String,
+                        value: 'LMO'
+                    },
+                    age: {
+                        type: Number,
+                        value: 20
+                    },
+                    isMarried: {
+                        type: Boolean,
+                        observer: '_isMarriedChanged'
+                    },
+                    address: {
+                        type: Object,
+
+                    },
+                    language: {
+                        type: Array
+                    },
+                    sapId: {
+                        type: Number,
+                        value: 5142299,
+                        observer: '_sapIdChange'
+                    },
+                    firstName: {
+                        type: String,
+                        value: 'MNO'
+                    },
+                    lastName: {
+                        type: String,
+                        value: 'Tech'
+                    },
+                    fullName: {
+                        type: String,
+                        computed: '_fullNameChange(firstName, lastName)'
+                    }
+                }
+            }
+
+            constructor() {
+                super();
+                this.isMarried = false;
+                this.address = { city: 'Delhi', street: 'ABC', pincode: 234567 };
+                this.language = [{
+                    name: 'Kannada',
+                    code: 1
+                }, {
+                    name: 'English',
+                    code: 2
+                }]
+            }
+
+            _checkIsMarried = (isMarried) => {
+                return isMarried ? 'Yes' : 'No';
+            }
+
+            _handleUpdate = () => {
+                this.name = Math.random();
+                this.age = Math.random();
+                this.isMarried = !this.isMarried;
+            }
+
+            _handleObjArryUpdate = () => {
+                // this.address.street = Math.random();
+                // this.address.city = Math.random();
+                // this.address.pincode = Math.random();
+
+                //Single property update
+
+                // this.set('address.city', Math.random());
+                // this.set('address.street', Math.random());
+                // this.set('address.pincode', Math.random());
+
+                //Batched properties updated
+                this.setProperties({
+                    'address.city': Math.random(),
+                    'address.street': Math.random(),
+                    'address.pincode': Math.random()
+                })
+
+                // this.set('address', {city: 'ABC', street: Math.random(), pincode: Math.random()});
+
+                //this.language.push({name:Math.random, code: 12})
+
+                //Arrray mutation
+                this.push('language', { name: Math.random(), code: 12 })
+            }
+
+            _handleDelete = () => {
+                //this.pop('language');
+                //this.slice('language')
+                // console.log(this.get('language.1.name'));
+                // console.log(this.get('address.city'));
+
+                this.splice('language', 1, 1)
+            }
+
+
+            _handleChange = () => {
+                this.sapId = Math.random();
+                this.isMarried = !this.isMarried;
+                this.name = Math.random();
+                this.firstName = 'JKRR';
+                this.lastName = Math.random();
+            }
+
+            _sapIdChange = (newVal, oldNew) => {
+                console.log(newVal, oldNew);
+                // your logic wil go here
+            }
+
+            _isMarriedChanged = (newVal, oldVal) => {
+                console.log(newVal, oldVal);
+                // your logic wil go here
+            }
+
+            nameChanged = (newSapId, newIsMarried, name) => {
+                console.log(newSapId, newIsMarried, name)
+            }
+
+            nameChange = (firstName, lastName) => {
+                console.log(`${firstName} ${lastName}`)
+            }
+
+            _addressChange = (newVal, oldVal) => {
+                console.log(newVal, oldVal)
+            }
+
+            _languageLength = (language) => {
+                console.log(language);
+            }
+
+            _fullNameChange = (firstName, lastName) => {
+                console.log(firstName, lastName)
+                return `${firstName} ${lastName}`;
+            }
+        }
+        window.customElements.define(ObservableChange.is, ObservableChange)
+    </script>
+</dom-module>

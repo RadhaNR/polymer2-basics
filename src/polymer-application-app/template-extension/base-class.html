@@ -1,0 +1,36 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html" />
+
+<dom-module id="base-class">
+    <template>
+       Inheriting template from Parent or Base class
+       
+    </template>
+    <script>
+        class BaseClass extends Polymer.Element {
+            static get is() {
+                return 'base-class';
+            }
+
+            static get template() {
+                return Polymer.html `
+                    <div>This is template - 0</div>
+                    ${this.temp1}
+                    ${this.temp2}
+                `;
+            }
+
+            static get temp1() {
+                return Polymer.html `
+                    <div>This is template - 1</div>
+                `;
+            }
+
+            static get temp2() {
+                return Polymer.html `
+                    <div>This is template - 2</div>
+                `;
+            }
+        }
+        customElements.define(BaseClass.is, BaseClass);
+    </script>
+</dom-module>

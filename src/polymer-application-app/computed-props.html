@@ -1,0 +1,51 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/paper-button/paper-button.html" />
+
+<dom-module id="computed-props">
+    <template>
+        ghjk
+            <!-- <p>First Name: {{firstName}}</p>
+            <p>Last Name: {{lastName}}</p>
+            <p>fullName Name: {{fullName}}</p>
+            <paper-button raised on-click="_fullNameChange">Change</paper-button> -->
+    </template>
+    <script>
+        class ComputedProps extends Polymer.Element {
+        //     static get template() {
+        //         return `   <p>First Name1111: {{firstName}}</p>
+        // <p>Last Name: {{lastName}}</p>
+        // <p>fullName Name: {{fullName}}</p>
+        // <paper-button raised on-click="_fullNameChange">Change</paper-button>`;
+        //     }
+            // static get is() {
+            //     return 'computed-props';
+            // }
+            static get properties() {
+                return {
+                    firstName: {
+                        type: String,
+                        value: 'ABC'
+                    },
+                    lastName: {
+                        type: String,
+                        value: 'XYZ'
+                    },
+                    fullName: {
+                        type: String,
+                        computed: 'computedFullName(firstName, lastName)'
+                    }
+                }
+            }
+
+            computedFullName = (firstName, lastName) => {
+                console.log('computedFUllName: ', firstName, lastName)
+                return `${firstName} ${lastName}`;
+            }
+            _fullNameChange = () => {
+                this.firstName = Math.random();
+                this.lastName = Math.random();
+            }
+        }
+        customElements.define('computed-props', ComputedProps);
+    </script>
+</dom-module>

@@ -1,0 +1,41 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html" />
+<link rel="import" href="/bower_components/polymer/lib/mixins/gesture-event-listeners.html" />
+<link rel="import" href="/bower_components/paper-button/paper-button.html" />
+
+<link rel="import" href="./cust-event-child.html" />
+
+
+<dom-module id="cust-event-parent">
+    <template>
+        Test
+        <cust-event-child></cust-event-child>
+        <paper-button on-track="_handleGest">GestureEventtListeners</paper-button>
+    </template>
+    <script>
+        class CustEvent extends Polymer.GestureEventListeners(Polymer.Element) {
+            static get is() {
+                return 'cust-event-parent';
+            }
+            ready() {
+                super.ready();
+                this.addEventListener('get-data', (event) => {
+                    console.log(event.detail)
+                })
+            }
+            _handleGest = (event) => {
+                switch (event.detail.state) {
+                    case 'start':
+                        console.log('started!!!');
+                        break;
+                    case 'track':
+                        console.log('track');
+                        break;
+                    case 'end':
+                        console.log('ended!!!');
+                        break;
+                }
+            }
+        }
+        customElements.define(CustEvent.is, CustEvent);
+    </script>
+</dom-module>

@@ -1,0 +1,103 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/paper-button/paper-button.html" />
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html" />
+
+<dom-module id="simple-observer">
+    <template>
+        <p>SapId: {{sapId}}</p>
+        <p>{{firstName}}, {{lastName}}</p>
+        <p>{{location.name}}</p>
+        <paper-button raised on-click="_handleChange">SapId Change</paper-button>
+        <paper-button raised on-click="_handleNameChange">Name Change</paper-button>
+        <paper-button raised on-click="_handleLocationChange">Location Change</paper-button>
+        <hr />
+        <template is="dom-repeat" items={{skillSet}}>
+            <p>[[index]], {{item.name}} -- {{item.sapId}}</p>
+        </template>
+        <paper-button raised on-click="_updateArray">Update Array</paper-button>
+    </template>
+
+    <script>
+        class SimpleObservers extends Polymer.Element {
+            static get is() {
+                return 'simple-observer';
+            }
+
+            static get observers() {
+                return [
+                    '_nameChanged(firstName, lastName)',
+                    '_locationChanged(location.*)',
+                    '_updateSkillSet(skillSet.*)'
+                ]
+            }
+
+            static get properties() {
+                return {
+                    sapId: {
+                        type: Number,
+                        value: 51422999,
+                        observer: '_sapIdChanged'
+                    },
+                    firstName: {
+                        type: String,
+                        value: 'Test'
+                    },
+                    lastName: {
+                        type: String,
+                        value: 'ABHC'
+                    },
+                    location: {
+                        type: Object,
+                        value: {
+                            name: 'Bangalore',
+                            code: 12424
+                        }
+                    },
+                    skillSet: {
+                        type: Array,
+                        value: [{
+                            name: 'Test',
+                            sapId: 1232
+                        }]
+                    }
+
+                }
+            }
+
+            _nameChanged = (firstName, lastName) => {
+                console.log(firstName, lastName)
+            }
+
+            _handleNameChange = () => {
+                this.firstName = Math.random();
+                this.lastName = Math.random();
+            }
+
+            _handleLocationChange = () => {
+                this.set('location.name', Math.random());
+                this.set('location.code', Math.random());
+            }
+
+            _sapIdChanged = (newSapId, oldSapId) => {
+                console.log(newSapId, oldSapId)
+            }
+
+            _locationChanged = (location) => {
+                console.log('location', location)
+            }
+
+            _handleChange = () => {
+                this.sapId = Math.random();
+            }
+
+            _updateArray = () => {
+                this.push('skillSet', { name: Math.random(), sapId: Math.random() })
+            }
+
+            _updateSkillSet=(skillSet)=> {
+                console.log('SkillSet: ', skillSet);
+            }
+        }
+        window.customElements.define(SimpleObservers.is, SimpleObservers);
+    </script>
+</dom-module>

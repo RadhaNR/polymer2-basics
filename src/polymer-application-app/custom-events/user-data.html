@@ -1,0 +1,72 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html" />
+<link rel="import" href="/bower_components/polymer/lib/mixins/gesture-event-listeners.html" />
+
+
+<link rel="import" href="render-user.html" />
+
+<dom-module id="user-data">
+    <template>
+        User Data component
+        <button raised on-click="_hanldeChnage">Change Age</button>
+        <paper-button raised on-track="_handleTrack">Gesture event</paper-button>
+        <hr />
+        <render-user user-data="{{userData}}" age="{{age}}"></render-user>
+
+    </template>
+    <script>
+        class UserData extends Polymer.GestureEventListeners(Polymer.Element) {
+            static get is() {
+                return 'user-data';
+            }
+
+            ready() {
+                super.ready();
+                this.addEventListener('delete-user', (event) => {
+                    console.log(`In parent: - ${event.type},- ${event.detail.item.name}`)
+                    //console.log(event.detail.item)
+                });
+                this.addEventListener('get-data', (event) => {
+                    console.log(`In parent: - ${event.type},- ${event.detail.sapId}`)
+                    // console.log(event.detail)
+                })
+            }
+            static get properties() {
+                return {
+                    userData: {
+                        type: Array,
+                        value: [
+                            { name: 'ABC', sapId: 1324 },
+                            { name: 'PQR', sapId: 3456 },
+                            { name: 'XYZ', sapId: 2334 }
+                        ]
+                    },
+                    age: {
+                        type: Number,
+                        value: 10
+                    }
+                }
+            }
+
+            _hanldeChnage = () => {
+                this.age = Math.random();
+            }
+
+            _handleTrack = (event) => {
+                //console.log(event.detail.state)
+                switch (event.detail.state) {
+                    case 'start':
+                        console.log('Event is started :)');
+                        break;
+                    case 'track':
+                        console.log('Event is Tracking !!!!');
+                        break;
+                    case 'end':
+                        console.log('Event is ended :(')
+                        break;
+                }
+            }
+
+        }
+        customElements.define(UserData.is, UserData);
+    </script>
+</dom-module>

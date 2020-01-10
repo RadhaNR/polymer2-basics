@@ -1,0 +1,56 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html" />
+<link rel="import" href="/bower_components/polymer/lib/elements/dom-repeat.html" />
+<link rel="import" href="/bower_components/paper-button/paper-button.html" />
+
+<dom-module id="render-user">
+    <template>
+
+        
+        AGE: {{age}}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Name</td>
+                    <td>SapId</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items={{userData}}>
+                    <tr>
+                        <td>[[_getIndex(index)]]</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.sapId}}</td>
+                        <td>
+                            <paper-button raised on-click="_handleDelete">Delete</paper-button>
+                            <paper-button raised on-click="_handleGetData">Get Data</paper-button>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </template>
+    <script>
+        class RenderUser extends Polymer.Element {
+            static get is() {
+                return 'render-user';
+            }
+
+            _getIndex = (index) => {
+                return index + 1;
+            }
+
+
+            _handleDelete = (event) => {
+                console.log('In CHild: ', event.type);
+                this.dispatchEvent(new CustomEvent('delete-user', { detail: { item: event.model.item }, bubbles: true, composed: true }));
+            }
+            _handleGetData = (event) => {
+                let { sapId } = event.model.item;
+                this.dispatchEvent(new CustomEvent('get-data', { detail: { sapId }, bubbles: true, composed: true }));
+            }
+        }
+        window.customElements.define(RenderUser.is, RenderUser);
+    </script>
+</dom-module>
