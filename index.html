@@ -11,13 +11,23 @@
   <!-- See https://goo.gl/OOhYW5 -->
   <link rel="manifest" href="/manifest.json">
 
+  <script>
+
+    window.Polymer = { rootPath: '/' };
+
+
+  </script>
+
+
   <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
   <link rel="import" href="/bower_components/neon-animation/neon-animation.html" />
-  <link rel="import" href="/src/polymer-application-app/data-system/data-binding/parent-comp.html" />
+  <link rel="import" href="/src/polymer-application-app/polymer-application-app.html" />
 </head>
 
 <body>
-  <parent-comp></parent-comp>
+
+  <polymer-application-app></polymer-application-app>
+
 </body>
 
 </html>
