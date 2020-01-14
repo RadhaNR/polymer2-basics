@@ -18,18 +18,21 @@
             <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
                 <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation" class="drawer-list">
 
-                    <a name="slot-elements" href="#[[rootPath]]slot-elements">Slot Element | </a>
+                    <!-- <a name="slot-elements" href="#[[rootPath]]slot-elements">Slot Element | </a>
                     <a name="template-constructor" href="#[[rootPath]]template-constructor"> template-constructor | </a>
                     <a name="base-class-inheritance" href="#[[rootPath]]base-class-inheritance">Base Class
                         Inheritance | </a>
                     <a name="override-base-class" href="#[[rootPath]]override-base-class">Override Base Class | </a>
-                    <a name="modify-base-class" href="#[[rootPath]]modify-base-class">Modify Base Class</a>
+                    <a name="modify-base-class" href="#[[rootPath]]modify-base-class">Modify Base Class</a> -->
+                    <a name="app-slots" href='[[rootPath]]app-slots'>Slotte Element</a>
+                    <a name="temp-cons" href="[[rootPath]]temp-cons">Template Constructor</a>
+                    <a name="inherit" href="[[rootPath]]inherit-child">inherit-from parent</a>
                 </iron-selector>
             </app-drawer>
             <app-header-layout>
                 <iron-pages selected="{{page}}" attr-for-selected="name" role="main">
 
-                    <slot-elements name="slot-elements">
+                    <!-- <slot-elements name="slot-elements">
                         <p slot="para">Enter the data in paragraph1111</p>
                         <div slot="division">Enter the data in Division</div>
                         <span>This is span</span>
@@ -38,7 +41,16 @@
                     <child-class name="base-class-inheritance"></child-class>
                     <child-class1 name="override-base-class"></child-class1>
                     <child-class2 name="modify-base-class"></child-class2>
-                    
+                     -->
+                    <slotted-elements name="app-slots">
+                        <p slot="para1">This is paragraph 11111</p>
+                        <p slot="para2">This is paragraph 22222</p>
+                        <div slot="division">This is division</div>
+                        <span>Hello this is span</span>
+                    </slotted-elements>
+                    <temp-cons name="temp-cons"></temp-cons>
+                    <inherit-child name="inherit"></inherit-child>
+
                     <my-view404 name="my-view404"></my-view404>
 
                 </iron-pages>
@@ -85,6 +97,15 @@
                     case 'modify-base-class':
                         url = this.resolveUrl(`dom-templating/extend-bassclass/child-class.html`);
                         break;
+                    case 'app-slots':
+                        url = this.resolveUrl(`shadow-dom-slot/slotted-element.html`);
+                        break;
+                    case 'temp-cons':
+                        url = this.resolveUrl(`template-dom/temp-cons.html`);
+                        break;
+                    case 'inherit':
+                        url = this.resolveUrl(`inheritance/inherit-child.html`);
+                        break;
                     default:
                         url = this.resolveUrl(page + '.html');
                 }
@@ -100,7 +121,7 @@
             }
 
             _routeDataChanged(page) {
-                this.page = page || 'view1';
+                this.page = page || 'app-slots';
             }
         }
         customElements.define(AppRouting.is, AppRouting);

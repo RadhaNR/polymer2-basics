@@ -1,0 +1,39 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html" />
+
+<dom-module id="inherit-parent">
+    <!-- <template>
+        Parent template
+    </template> -->
+    <script>
+        class InheritParent extends Polymer.Element {
+            static get is() {
+                return 'inherit-parent'
+            }
+            static get template() {
+                return Polymer.html`
+                    ${this.headerHtml}
+                    ${this.customTemplate}
+                    ${this.footerHtml}
+                `;
+            }
+
+            static get headerHtml() {
+                return Polymer.html`
+                    <p>Header Component</p>
+                `;
+            }
+
+            static get footerHtml() {
+                return Polymer.html`
+                    <p>Footer Component</p>
+                `;
+            }
+            static get customTemplate() {
+                return Polymer.html`
+                    <p>Hello Mayank !!!!</p>
+                `;
+            }
+        }
+        customElements.define(InheritParent.is, InheritParent);
+    </script>
+</dom-module>

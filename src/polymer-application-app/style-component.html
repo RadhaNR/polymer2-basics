@@ -1,0 +1,45 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/polymer/lib/elements/custom-style.html" />
+<link rel="import" href="./shared-styles.html" />
+
+<dom-module id="style-component">
+    <template>
+        <custom-style>
+            <style include="shared-styles">
+                /* div,p {
+                background-color: brown;
+                font-size: 40px;
+            }
+            :host {
+                background-color: chartreuse;
+                font-size: 20px;
+                display: block;
+            }
+            h1 ::slotted(*) {
+                color: red;
+            } */
+                div {
+                    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                }
+            </style>
+        </custom-style>
+        <div class="card"> style-component</div>
+        <p>This is para</p>
+        <h1>
+            <slot name="first"></slot>
+        </h1>
+        <h1>
+            <slot name="second"></slot>
+        </h1>
+        <slot name="second"></slot>
+        <slot></slot>
+    </template>
+    <script>
+        class StyleComponent extends Polymer.Element {
+            static get is() {
+                return 'style-component';
+            }
+        }
+        customElements.define(StyleComponent.is, StyleComponent);
+    </script>
+</dom-module>

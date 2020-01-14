@@ -1,0 +1,20 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html" />
+
+<dom-module id="slotted-elements">
+    <template>
+        This is parent content
+        <hr />
+        <slot name="para2"></slot>
+        <slot></slot>
+        <slot name="para1"></slot>
+        
+    </template>
+    <script>
+        class SlottedElements extends Polymer.Element {
+            static get is() {
+                return 'slotted-elements';
+            }
+        }
+        customElements.define(SlottedElements.is, SlottedElements);
+    </script>
+</dom-module>

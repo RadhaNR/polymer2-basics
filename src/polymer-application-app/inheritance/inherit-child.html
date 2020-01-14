@@ -1,0 +1,32 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../inheritance/inherit-parent.html" />
+
+<dom-module id="inherit-child">
+    <!-- <template>
+        <div>this is child template</div>
+    </template> -->
+    <script>
+        class InheritChild extends InheritParent {
+            static get is() {
+                return 'inherit-child'
+            }
+
+            static get template() {
+                return Polymer.html`
+                <div>this is child template</div>
+                ${super.template}
+                <div>testing _____</div>
+                `;
+            }
+
+            static get customTemplate() {
+                return Polymer.html`
+                    <p>Hello Amit !!!!</p>
+                `;
+            }
+
+            
+        }
+        customElements.define(InheritChild.is, InheritChild);
+    </script>
+</dom-module>

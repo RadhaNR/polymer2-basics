@@ -1,0 +1,29 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../my-view1.html" />
+
+<dom-module id="temp-cons">
+    <!-- <template>
+        dom-module temp
+    </template> -->
+    <script>
+        const html = Polymer.html;
+        const comp = Polymer.Element;
+        class TempCons extends comp {
+            static get is() {
+                return 'temp-cons';
+            }
+            /**
+             *  This is template constructor
+             * */
+            static get template() {
+                return html`
+                    <div>
+                        This is template constructor
+                        <my-view1></my-view1>
+                    </div>
+                `;
+            }
+        }
+        customElements.define('temp-cons', TempCons);
+    </script>
+</dom-module>
