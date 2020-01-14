@@ -17,15 +17,29 @@
 
 
   </script>
+  <style>
+    div {
+      background-color: blue;
+      color: white;
+      font-size: 20px;
+    }
+  </style>
 
 
   <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
   <link rel="import" href="/bower_components/neon-animation/neon-animation.html" />
   <link rel="import" href="/src/polymer-application-app/app-routing.html" />
+  <link rel="import" href="/src/polymer-application-app/shadow-dom-app.html" />
 </head>
 
 <body>
-<app-routing></app-routing>
+  <div>Testing style for DIV</div>
+  <div>
+    <shadow-dom-app>
+      <p slot="param"> This is slotted element</p>
+      <p slot="param1"> This is slotted element</p>
+    </shadow-dom-app>
+  </div>
 
 </body>
 

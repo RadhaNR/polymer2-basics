@@ -1,16 +1,43 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html" />
 <link rel="import" href="../../bower_components/app-route/app-route.html" />
+<link rel="import" href="../../bower_components/polymer/lib/elements/custom-style.html" />
+<link rel="import" href="./shared-styles.html" />
 
 <dom-module id="shadow-dom-app">
-<template>
-    TEsting
-</template>
-<script>
-    class ShadowDomApp extends Polymer.Element {
-        static get is() {
-            return 'shadow-dom-app'
+    <template>
+        <custom-style>
+            <style include="shared-styles">
+                p {
+                    color: yellow;
+                    background-color: pink;
+                }
+
+
+                :host {
+                    background-color: orange;
+                    display: block;
+                    border: 1px solid;
+                }
+
+                ::slotted([slot=param]) {
+                    background-color: red;
+                }
+
+                ::slotted([slot="param1"]) {
+                    background-color: aqua;
+                }
+            </style>
+        </custom-style>
+        <p class="card">TEsting</p>
+        <slot name="param"></slot>
+        <slot name="param1"></slot>
+    </template>
+    <script>
+        class ShadowDomApp extends Polymer.Element {
+            static get is() {
+                return 'shadow-dom-app'
+            }
         }
-    }
-    customElements.define(ShadowDomApp.is, ShadowDomApp);
-</script>
+        customElements.define(ShadowDomApp.is, ShadowDomApp);
+    </script>
 </dom-module>
