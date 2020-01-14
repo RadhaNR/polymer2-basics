@@ -1,0 +1,20 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="./parent-class.html" />
+
+<dom-module id="child-class1">
+   
+    <script>
+        class ChildClass1 extends ParentClass1 {
+            static get is() {
+                return 'child-class1';
+            }
+
+            static get template() {
+                return Polymer.html `
+                    <p>Hello this is overriding parent child</p>
+                `;
+            }
+        }
+        customElements.define(ChildClass1.is, ChildClass1);
+    </script>
+</dom-module>

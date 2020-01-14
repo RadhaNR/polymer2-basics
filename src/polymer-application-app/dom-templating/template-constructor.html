@@ -1,0 +1,19 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html" />
+
+<dom-module id="template-constructor">
+    <template>
+        template-constructor will override this template
+    </template>
+    <script>
+        class TemplateConstructor extends Polymer.Element {
+            static get is() {
+                return 'template-constructor';
+            }
+
+            static get template() {
+                return Polymer.html `<p>Hello i am from template</p>Enter data  `;
+            }
+        }
+        customElements.define(TemplateConstructor.is, TemplateConstructor)
+    </script>
+</dom-module>

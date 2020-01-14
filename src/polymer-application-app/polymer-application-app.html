@@ -24,8 +24,7 @@
     <app-location route="{{route}}">
     </app-location>
 
-    <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}">
-    </app-route>
+    <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}"> </app-route>
     <app-drawer-layout>
 
 
@@ -79,8 +78,6 @@
         // If no page was found in the route data, page will be an empty string.
         // Default to 'view1' in that case.
         this.page = page || 'view1';
-
-       
       }
 
       _pageChanged(page) {

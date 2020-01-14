@@ -1,0 +1,32 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="./parent-class.html" />
+
+<dom-module id="child-class2">
+
+    <script>
+        class ChildClass2 extends ParentClass2 {
+
+            // this function is optional when we are using template constructor, we cn directly give select in customElements
+
+            // static get is() {
+            //     return 'child-class2';
+            // }
+
+            static get template() {
+                return Polymer.html`
+                this is child tempalte
+                    <p>Hello this is overriding parent child</p>
+                    <hr/>
+                <p>this is parent template</p>
+                    ${super.template}
+
+                    
+                `;
+            }
+
+            static get headerHtml() { return Polymer.html`<h2>ChildClass: Header</h2>` }
+            static get footerHtml() { return Polymer.html`<h2>ChildClass: Footer</h2>` }
+        }
+        customElements.define('child-class2', ChildClass2);
+    </script>
+</dom-module>

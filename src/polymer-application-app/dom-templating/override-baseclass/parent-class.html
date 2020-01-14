@@ -1,0 +1,16 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../../../bower_components/paper-button/paper-button.html" />
+<dom-module id="parent-class1">
+    <template>
+        this is base class template
+       <paper-button raised>Click Here</paper-button>
+    </template>
+    <script>
+        class ParentClass1 extends Polymer.Element {
+            static get is() {
+                return 'parent-class1';
+            }
+        }
+        customElements.define(ParentClass1.is, ParentClass1);
+    </script>
+</dom-module>

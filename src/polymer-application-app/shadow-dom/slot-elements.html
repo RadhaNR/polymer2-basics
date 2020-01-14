@@ -1,0 +1,20 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer-element.html" />
+
+<dom-module id="slot-elements">
+    <template>
+        Enter the datai in bower_components
+        <slot name="para"></slot>
+        <slot name="division">
+            this is fallback
+        </slot>
+        <slot></slot>
+    </template>
+    <script>
+        class SlotElement extends Polymer.Element {
+            static get is() {
+                return 'slot-elements'
+            }
+        }
+        customElements.define(SlotElement.is, SlotElement)
+    </script>
+</dom-module>
