@@ -1,0 +1,27 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html" />
+<link rel="import" href="../../bower_components/paper-radio-button/paper-radio-button.html" />
+<dom-module id="custom-css">
+    <template>
+        <style>
+            /* paper-checkbox {
+                --paper-checkbox-unchecked-background-color: var(--paper-uck-bg-color, #ffffff);
+                --paper-checkbox-checked-color: var(--paper-ck-bg-color, #ff670f);
+            }
+            paper-radio-button {
+                --paper-radio-button-unchecked-color: yellow;
+                --paper-radio-button-checked-color: green
+            } */
+        </style>
+        <paper-checkbox>Checkbox</paper-checkbox>
+        <paper-radio-button>Female</paper-radio-button>
+    </template>
+    <script>
+        class CustomCss extends Polymer.Element {
+            static get is() {
+                return 'custom-css'
+            }
+        }
+        customElements.define(CustomCss.is, CustomCss);
+    </script>
+</dom-module>

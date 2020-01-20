@@ -1,0 +1,45 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html" />
+<link rel="import" href="../../bower_components/paper-radio-button/paper-radio-button.html" />
+<link rel="import" href="../../bower_components/paper-button/paper-button.html" />
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html" />
+
+<dom-module id="custom-css-props">
+    <template>
+        <style>
+            paper-checkbox {
+                --paper-checkbox-checked-color: var(--paper-checkbox-ckcolor, pink);
+            }
+
+            paper-radio-button {
+                --paper-radio-button-checked-color: green;
+                --paper-radio-button-unchecked-color: pink;
+            }
+            paper-toast {
+                --paper-toast-background-color: orange;
+                --paper-toast-color: green;
+            }
+        </style>
+
+        <paper-checkbox>Checkbox</paper-checkbox>
+        <paper-radio-button>Male</paper-radio-button>
+        <paper-button raised on-click="_handleToast">Styled toast</paper-button>
+
+        <!-- <paper-toast id="toast1" text="Heehehehehe" opened></paper-toast> -->
+        <paper-toast id="toast" text="Hello world!" opened></paper-toast>
+
+
+    </template>
+    <script>
+        class CustomCssProps extends Polymer.Element {
+            static get is() {
+                return 'custom-css-props';
+            }
+            _handleToast = () => {
+              //  this.message = "Hello world";
+                this.$.toast.open();
+            }
+        }
+        customElements.define(CustomCssProps.is, CustomCssProps);
+    </script>
+</dom-module>

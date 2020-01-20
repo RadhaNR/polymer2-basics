@@ -24,9 +24,12 @@
                         Inheritance | </a>
                     <a name="override-base-class" href="#[[rootPath]]override-base-class">Override Base Class | </a>
                     <a name="modify-base-class" href="#[[rootPath]]modify-base-class">Modify Base Class</a> -->
-                    <a name="app-slots" href='[[rootPath]]app-slots'>Slotte Element</a>
+                    <!-- <a name="app-slots" href='[[rootPath]]app-slots'>Slotte Element</a>
                     <a name="temp-cons" href="[[rootPath]]temp-cons">Template Constructor</a>
                     <a name="inherit" href="[[rootPath]]inherit-child">inherit-from parent</a>
+                    <a name="custom-css-props" href="[[rootPath]]custom-css-props">custom-css-props</a> -->
+                    <a name="list-user" href="[[rootPath]]list-user">List Users | </a>
+                    <a name="add-user" href="[[rootPath]]add-user">Add User | </a>
                 </iron-selector>
             </app-drawer>
             <app-header-layout>
@@ -50,6 +53,9 @@
                     </slotted-elements>
                     <temp-cons name="temp-cons"></temp-cons>
                     <inherit-child name="inherit"></inherit-child>
+                    <custom-css-props name="custom-css-props"></custom-css-props>
+                    <list-user name="list-user" id="listUser"></list-user>
+                    <add-user name="add-user" id="addUser"></add-user>
 
                     <my-view404 name="my-view404"></my-view404>
 
@@ -79,6 +85,16 @@
                 return ['_routeDataChanged(routeData.page)']
             }
 
+            ready() {
+                super.ready();
+                console.log("list-user: ", event)
+                window.addEventListener('refresh-list', this._handleRefrehList)
+            }
+
+            _handleRefrehList=(event)=> {
+                console.log(event.type);
+                this.$.listUser._getData();
+            }
             _pageChanged = (page) => {
                 let url;
                 switch (page) {
@@ -106,6 +122,15 @@
                     case 'inherit':
                         url = this.resolveUrl(`inheritance/inherit-child.html`);
                         break;
+                    case 'custom-css-props':
+                        url = this.resolveUrl(`custom-css-properties.html`);
+                        break;
+                    case 'list-user':
+                        url = this.resolveUrl(`refresh-page/list-user.html`);
+                        break;
+                    case 'add-user':
+                        url = this.resolveUrl(`refresh-page/add-user.html`);
+                        break;
                     default:
                         url = this.resolveUrl(page + '.html');
                 }
@@ -121,7 +146,7 @@
             }
 
             _routeDataChanged(page) {
-                this.page = page || 'app-slots';
+                this.page = page || 'list-user';
             }
         }
         customElements.define(AppRouting.is, AppRouting);

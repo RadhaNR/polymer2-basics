@@ -1,0 +1,71 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../../bower_components/polymer/lib/elements/dom-repeat.html" />
+<link rel="import" href="../../../bower_components/iron-ajax/iron-ajax.html" />
+
+<dom-module id="list-user">
+    <template>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Name</td>
+                    <td>Code</td>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items={{userList}}>
+                    <tr>
+                        <td>[[index]]</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.sapId}}</td>
+                        <td>
+                            <iron-icon icon="clear" data-set$={{index}} on-click="_handleDelete"></iron-icon>
+                            <iron-icon icon="create" data-set$={{item}} on-click="_handleEdit"></iron-icon>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <iron-ajax id="ajax" on-response="_handleResponse" on-error="_handleError" content-type="application/json">
+        </iron-ajax>
+
+    </template>
+    <script>
+        class ListUser extends Polymer.Element {
+            static get is() {
+                return 'list-user';
+            }
+            static get properties() {
+                return {
+
+                    userList: {
+                        type: Array
+                    }
+                }
+            }
+
+
+            connectedCallback() {
+                super.connectedCallback();
+                this._getData();
+            }
+            _getData = () => {
+                console.log("in list method")
+                let ajax = this.$.ajax;
+                ajax.method = 'get';
+                ajax.url = 'http://localhost:3000/users';
+                ajax.generateRequest();
+            }
+
+            _handleResponse = (event) => {
+                this.userList = event.detail.response;
+
+            }
+
+
+        }
+        customElements.define(ListUser.is, ListUser);
+    </script>
+</dom-module>

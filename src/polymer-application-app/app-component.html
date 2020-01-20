@@ -188,7 +188,7 @@
             }
 
             _handleEdit = (event) => {
-                let data = event.model.item;
+                let data = event.model.item; //event.target.dataset
 
                 this.$.modal.open();
                 this.name = data.name;

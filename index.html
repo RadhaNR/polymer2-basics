@@ -28,22 +28,18 @@
   <link rel="import" href="/bower_components/neon-animation/neon-animation.html" />
   <link rel="import" href="/src/polymer-application-app/app-routing.html" />
   <link rel="import" href="/src/polymer-application-app/style-component.html" />
+  <link rel="import" href="/src/polymer-application-app/custom-css.html" />
+
+  <style>
+    html {
+      --paper-uck-bg-color: #ffffff;
+      --paper-ck-bg-color: #67ff0f;
+    }
+  </style>
 </head>
 
 <body>
-  <div>Test</div>
-  <div>Demo</div>
-
-  <hr />
-  <div>
-    <style-component>
-      <p slot="first">Testinf</p>
-      <p slot="second">Testinf</p>
-      <p>Testinf</p>
-      <p>Testinf</p>
-    </style-component>
-
-  </div>
+  <app-routing></app-routing>
 </body>
 
 </html>
