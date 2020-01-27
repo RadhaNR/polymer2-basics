@@ -15,6 +15,7 @@
                 --paper-radio-button-checked-color: green;
                 --paper-radio-button-unchecked-color: pink;
             }
+
             paper-toast {
                 --paper-toast-background-color: orange;
                 --paper-toast-color: green;
@@ -35,8 +36,8 @@
             static get is() {
                 return 'custom-css-props';
             }
-            _handleToast = () => {
-              //  this.message = "Hello world";
+            _handleToast() {
+                //  this.message = "Hello world";
                 this.$.toast.open();
             }
         }

@@ -14,14 +14,14 @@
                 </tr>
             </thead>
             <tbody>
-                <template is="dom-repeat" items={{userList}}>
+                <template is="dom-repeat" items="{{userList}}">
                     <tr>
                         <td>[[index]]</td>
                         <td>{{item.name}}</td>
                         <td>{{item.sapId}}</td>
                         <td>
-                            <iron-icon icon="clear" data-set$={{index}} on-click="_handleDelete"></iron-icon>
-                            <iron-icon icon="create" data-set$={{item}} on-click="_handleEdit"></iron-icon>
+                            <iron-icon icon="clear" data-set$="{{index}}" on-click="_handleDelete"></iron-icon>
+                            <iron-icon icon="create" data-set$="{{item}}" on-click="_handleEdit"></iron-icon>
                         </td>
                     </tr>
                 </template>
@@ -51,7 +51,7 @@
                 super.connectedCallback();
                 this._getData();
             }
-            _getData = () => {
+            _getData() {
                 console.log("in list method")
                 let ajax = this.$.ajax;
                 ajax.method = 'get';
@@ -59,7 +59,7 @@
                 ajax.generateRequest();
             }
 
-            _handleResponse = (event) => {
+            _handleResponse(event) {
                 this.userList = event.detail.response;
 
             }

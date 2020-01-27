@@ -8,11 +8,11 @@
 
 <dom-module id="add-user">
     <template>
-        <app-location route={{route}}></app-location>
+        <app-location route="{{route}}"></app-location>
         <iron-form id="addUserForm">
             <form>
-                <paper-input label="Name" value={{name}}></paper-input>
-                <paper-input label="Sapid" value={{sapId}} type="number"></paper-input>
+                <paper-input label="Name" value="{{name}}"></paper-input>
+                <paper-input label="Sapid" value="{{sapId}}" type="number"></paper-input>
                 <paper-button raised on-click="_handleSubmit">Submit</paper-button>
             </form>
         </iron-form>
@@ -42,7 +42,7 @@
             }
 
 
-            _handleResponse = (event) => {
+            _handleResponse(event) {
                 console.log(event);
                 this.set('route.path', 'list-user')
                 window.dispatchEvent(new CustomEvent('refresh-list', {
@@ -51,7 +51,7 @@
 
             }
 
-            _handleSubmit = () => {
+            _handleSubmit() {
                 let user = { name: this.name, sapId: this.sapId };
                 let ajax = this.$.ajax;
                 ajax.method = 'post';

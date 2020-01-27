@@ -18,11 +18,11 @@
             }
             ready() {
                 super.ready();
-                this.addEventListener('get-data', (event) => {
+                this.addEventListener('get-data', function () {
                     console.log(event.detail)
                 })
             }
-            _handleGest = (event) => {
+            _handleGest(event) {
                 switch (event.detail.state) {
                     case 'start':
                         console.log('started!!!');

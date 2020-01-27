@@ -8,7 +8,7 @@
         Name : {{name}} -- {{firstName}}
         <paper-button raised on-click="_handleClick">Update</paper-button>
         <hr />
-        <child-element name="{{name}}" first-name={{firstName}}></child-element>
+        <child-element name="{{name}}" first-name="{{firstName}}"></child-element>
     </template>
     <script>
         class ParentElement extends Polymer.Element {
@@ -27,7 +27,7 @@
                     }
                 }
             }
-            _handleClick = () => {
+            _handleClick() {
                 this.name = Math.random();
             }
         }

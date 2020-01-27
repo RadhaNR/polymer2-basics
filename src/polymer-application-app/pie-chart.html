@@ -1,0 +1,49 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/svg-piechart/svg-piechart.html" />
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html" />
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html" />
+<link rel="import" href="../../bower_components/paper-carousel/paper-carousel.html" />
+<link rel="import" href="../../bower_components/google-chart/google-chart.html" />
+
+<dom-module id="pie-chart">
+    <template>
+
+
+        <google-chart type='pie' options='{{options}}' cols='{{cols}}' rows='{{rows}}'></google-chart>
+        <google-chart type='line' options='{{options}}' cols='{{cols}}' rows='{{rows}}'></google-chart>
+        <google-chart type='bar' options='{{options}}' cols='{{cols}}' rows='{{rows}}'></google-chart>
+        <google-chart type='column' options='{{options}}' cols='{{cols}}' rows='{{rows}}'></google-chart>
+        <google-chart type='area' options='{{options}}' cols='{{cols}}' rows='{{rows}}'></google-chart>
+        <google-chart type='table' options='{{options}}' cols='{{cols}}' rows='{{rows}}'></google-chart>
+        <google-chart type='bubble' options='{{options}}' cols='{{cols}}' rows='{{rows}}'></google-chart>
+        <google-chart type='timeline' options='{{options}}' cols='{{cols}}' rows='{{rows}}'></google-chart>
+    </template>
+    <script>
+        class PieChart extends Polymer.Element {
+
+            static get is() {
+                return 'pie-chart'
+            }
+
+            static get properties() {
+                return {
+                    options: {
+                        type: Object,
+                        value: { "title": "Pie Chart" }
+                    },
+                    cols: {
+                        type: Array,
+                        value: [{ "label": "Country", "type": "string" }, { "label": "Value", "type": "number" }]
+                    },
+                    rows: {
+                        type: Array,
+                        value: [["Germany", 5.0], ["US", 4.0], ["Africa", 11.0], ["France", 4.0]]
+                        //value: [["Germany", 5.0,10], ["US", 4.0,51], ["Africa", 11.0,17], ["France", 4.0,2]]
+                    }
+                }
+            }
+
+        }
+        customElements.define(PieChart.is, PieChart);
+    </script>
+</dom-module>

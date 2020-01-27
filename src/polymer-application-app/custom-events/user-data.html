@@ -21,14 +21,14 @@
 
             ready() {
                 super.ready();
-                this.addEventListener('delete-user', (event) => {
+                this.addEventListener('delete-user', (function () {
                     console.log(`In parent: - ${event.type},- ${event.detail.item.name}`)
                     //console.log(event.detail.item)
-                });
-                this.addEventListener('get-data', (event) => {
+                }));
+                this.addEventListener('get-data', (function () {
                     console.log(`In parent: - ${event.type},- ${event.detail.sapId}`)
                     // console.log(event.detail)
-                })
+                }));
             }
             static get properties() {
                 return {
@@ -47,11 +47,11 @@
                 }
             }
 
-            _hanldeChnage = () => {
+            _hanldeChnage() {
                 this.age = Math.random();
             }
 
-            _handleTrack = (event) => {
+            _handleTrack(event) {
                 //console.log(event.detail.state)
                 switch (event.detail.state) {
                     case 'start':

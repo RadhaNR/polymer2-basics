@@ -19,7 +19,7 @@
         <br />-->
         <div>
             Language:
-            <template is="dom-repeat" items={{language}}>
+            <template is="dom-repeat" items="{{language}}">
                 <div>{{item.name}}- {{item.code}}</div>
             </template>
         </div>
@@ -108,17 +108,17 @@
                 }]
             }
 
-            _checkIsMarried = (isMarried) => {
+            _checkIsMarried(isMarried) {
                 return isMarried ? 'Yes' : 'No';
             }
 
-            _handleUpdate = () => {
+            _handleUpdate() {
                 this.name = Math.random();
                 this.age = Math.random();
                 this.isMarried = !this.isMarried;
             }
 
-            _handleObjArryUpdate = () => {
+            _handleObjArryUpdate() {
                 // this.address.street = Math.random();
                 // this.address.city = Math.random();
                 // this.address.pincode = Math.random();
@@ -144,7 +144,7 @@
                 this.push('language', { name: Math.random(), code: 12 })
             }
 
-            _handleDelete = () => {
+            _handleDelete () {
                 //this.pop('language');
                 //this.slice('language')
                 // console.log(this.get('language.1.name'));
@@ -154,7 +154,7 @@
             }
 
 
-            _handleChange = () => {
+            _handleChange() {
                 this.sapId = Math.random();
                 this.isMarried = !this.isMarried;
                 this.name = Math.random();
@@ -162,33 +162,33 @@
                 this.lastName = Math.random();
             }
 
-            _sapIdChange = (newVal, oldNew) => {
+            _sapIdChange(newVal, oldNew) {
                 console.log(newVal, oldNew);
                 // your logic wil go here
             }
 
-            _isMarriedChanged = (newVal, oldVal) => {
+            _isMarriedChanged(newVal, oldVal) {
                 console.log(newVal, oldVal);
                 // your logic wil go here
             }
 
-            nameChanged = (newSapId, newIsMarried, name) => {
+            nameChanged(newSapId, newIsMarried, name) {
                 console.log(newSapId, newIsMarried, name)
             }
 
-            nameChange = (firstName, lastName) => {
+            nameChange(firstName, lastName) {
                 console.log(`${firstName} ${lastName}`)
             }
 
-            _addressChange = (newVal, oldVal) => {
+            _addressChange(newVal, oldVal) {
                 console.log(newVal, oldVal)
             }
 
-            _languageLength = (language) => {
+            _languageLength(language) {
                 console.log(language);
             }
 
-            _fullNameChange = (firstName, lastName) => {
+            _fullNameChange(firstName, lastName) {
                 console.log(firstName, lastName)
                 return `${firstName} ${lastName}`;
             }

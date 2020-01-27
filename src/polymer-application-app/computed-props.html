@@ -4,19 +4,19 @@
 <dom-module id="computed-props">
     <template>
         ghjk
-            <!-- <p>First Name: {{firstName}}</p>
+        <!-- <p>First Name: {{firstName}}</p>
             <p>Last Name: {{lastName}}</p>
             <p>fullName Name: {{fullName}}</p>
             <paper-button raised on-click="_fullNameChange">Change</paper-button> -->
     </template>
     <script>
         class ComputedProps extends Polymer.Element {
-        //     static get template() {
-        //         return `   <p>First Name1111: {{firstName}}</p>
-        // <p>Last Name: {{lastName}}</p>
-        // <p>fullName Name: {{fullName}}</p>
-        // <paper-button raised on-click="_fullNameChange">Change</paper-button>`;
-        //     }
+            //     static get template() {
+            //         return `   <p>First Name1111: {{firstName}}</p>
+            // <p>Last Name: {{lastName}}</p>
+            // <p>fullName Name: {{fullName}}</p>
+            // <paper-button raised on-click="_fullNameChange">Change</paper-button>`;
+            //     }
             // static get is() {
             //     return 'computed-props';
             // }
@@ -37,11 +37,11 @@
                 }
             }
 
-            computedFullName = (firstName, lastName) => {
+            computedFullName(firstName, lastName) {
                 console.log('computedFUllName: ', firstName, lastName)
                 return `${firstName} ${lastName}`;
             }
-            _fullNameChange = () => {
+            _fullNameChange() {
                 this.firstName = Math.random();
                 this.lastName = Math.random();
             }

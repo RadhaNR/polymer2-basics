@@ -12,7 +12,7 @@
                 return 'cust-event-child';
             }
 
-            handleClick = () => {
+            handleClick() {
                 this.dispatchEvent(new CustomEvent('get-data', {
                     detail: {
                         message: 'Hello world'

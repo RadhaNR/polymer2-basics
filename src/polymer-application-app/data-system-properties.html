@@ -11,7 +11,7 @@
         <p>isMarried: {{isMarried}}</p>
         <p>Location: {{location.name}}, Code: {{location.code}}</p>
         <paper-button raised on-click="_handleUpdate">Update Object</paper-button>
-        <iron-icon icon="add" data-set$={{item}} on-click="_handleAdd"></iron-icon>
+        <iron-icon icon="add" data-set$="{{item}}" on-click="_handleAdd"></iron-icon>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -22,14 +22,14 @@
                 </tr>
             </thead>
             <tbody>
-                <template is="dom-repeat" items={{skillSet}}>
+                <template is="dom-repeat" items="{{skillSet}}">
                     <tr>
                         <td>[[index]]</td>
                         <td>{{item.name}}</td>
                         <td>{{item.code}}</td>
                         <td>
-                            <iron-icon icon="clear" data-set$={{index}} on-click="_handleDelete"></iron-icon>
-                            <iron-icon icon="create" data-set$={{item}} on-click="_handleEdit"></iron-icon>
+                            <iron-icon icon="clear" data-set$="{{index}}" on-click="_handleDelete"></iron-icon>
+                            <iron-icon icon="create" data-set$="{{item}}" on-click="_handleEdit"></iron-icon>
                         </td>
                     </tr>
                 </template>
@@ -73,14 +73,14 @@
                 }
             }
 
-            _handleClick = () => {
+            _handleClick() {
                 console.log(this)
                 this.name = 'Rama' + Math.random();
                 this.age = Math.random();
                 this.isMarried = !this.isMarried;
             }
 
-            _handleUpdate = () => {
+            _handleUpdate() {
                 // this.location.name =  'Punne' + Math.random();
 
                 // this.set('location.name', 'Punne' + Math.random());
@@ -93,7 +93,7 @@
                 })
             }
 
-            _handleAdd = () => {
+            _handleAdd() {
                 // this.skillSet.push({ name: 'Angular', code: Math.random() });
 
                 // array mutation methods - > 
@@ -106,7 +106,7 @@
 
                 this.push('skillSet', { name: 'Angular', code: Math.random() })
             }
-            _handleDelete = () => {
+            _handleDelete() {
                 //this.splice('skillSet', 1, event.model.index)
                 this.pop('skillSet', 1);
             }

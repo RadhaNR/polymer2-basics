@@ -5,7 +5,7 @@
 <dom-module id="render-user">
     <template>
 
-        
+
         AGE: {{age}}
         <table class="table table-bordered">
             <thead>
@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <template is="dom-repeat" items={{userData}}>
+                <template is="dom-repeat" items="{{userData}}">
                     <tr>
                         <td>[[_getIndex(index)]]</td>
                         <td>{{item.name}}</td>
@@ -37,16 +37,16 @@
                 return 'render-user';
             }
 
-            _getIndex = (index) => {
+            _getIndex(index) {
                 return index + 1;
             }
 
 
-            _handleDelete = (event) => {
+            _handleDelete(event) {
                 console.log('In CHild: ', event.type);
                 this.dispatchEvent(new CustomEvent('delete-user', { detail: { item: event.model.item }, bubbles: true, composed: true }));
             }
-            _handleGetData = (event) => {
+            _handleGetData(event) {
                 let { sapId } = event.model.item;
                 this.dispatchEvent(new CustomEvent('get-data', { detail: { sapId }, bubbles: true, composed: true }));
             }

@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                <template is="dom-repeat" items={{skillSet}}>
+                <template is="dom-repeat" items="{{skillSet}}">
                     <tr>
                         <td>[[index]]</td>
                         <td>{{item.name}}</td>
@@ -52,12 +52,12 @@
             }
 
 
-            _handleAdd = () => {
+            _handleAdd() {
                 //this.push('skillSet', { name: 'Angular', code: Math.random() });
                 this.skillSet.push({ name: 'Angular', code: Math.random() });
                 this.notifyPath('skillSet');
             }
-            _handleDelete = () => {
+            _handleDelete() {
                 // this.pop('skillSet', 1);
                 this.location.name = Math.random();
                 this.notifyPath('location.name')

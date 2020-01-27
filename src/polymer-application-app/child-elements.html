@@ -16,11 +16,11 @@
                 super();
                 console.log("child element");
             }
-            _handleClick = () => {
+            _handleClick() {
                 this.dispatchEvent(new CustomEvent('get-users', { detail: { data: 'get from message from me' }, bubbles: true, composed: true }))
             }
 
-            _handleDelete = () => {
+            _handleDelete() {
                 this.dispatchEvent(new CustomEvent('delete-user', { detail: { id: 1 }, bubbles: true, composed: true }))
             }
         }

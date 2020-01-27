@@ -26,13 +26,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <template is="dom-repeat" items={{listOfEmployee}}>
+                    <template is="dom-repeat" items="{{listOfEmployee}}">
                         <tr>
                             <td>{{item.name}}</td>
                             <td>{{item.sapId}}</td>
                             <td>
-                                <iron-icon icon="clear" data-set$={{item}} on-click="_handleDelete"></iron-icon>
-                                <iron-icon icon="create" data-set$={{item}} on-click="_handleEdit"></iron-icon>
+                                <iron-icon icon="clear" data-set$="{{item}}" on-click="_handleDelete"></iron-icon>
+                                <iron-icon icon="create" data-set$="{{item}}" on-click="_handleEdit"></iron-icon>
                             </td>
                         </tr>
                     </template>
@@ -46,9 +46,9 @@
                     <iron-form id="formModal">
                         <form>
                             <paper-input type="number" label="Enter SapId" required error-message="SapId is Required"
-                                name="sapId" value={{sapId}}></paper-input>
+                                name="sapId" value="{{sapId}}"></paper-input>
                             <paper-input label="Enter Name" required error-message="Name is Required" name="name"
-                                value={{name}}></paper-input>
+                                value="{{name}}"></paper-input>
                         </form>
                     </iron-form>
                     <br />
@@ -60,7 +60,7 @@
             </paper-dialog>
 
 
-            <paper-toast text={{message}} id="toast"></paper-toast>
+            <paper-toast text="{{message}}" id="toast"></paper-toast>
             <iron-ajax id="ajax" handle-as="json" on-response="_handleResponse" on-error="_handleError"
                 content-type="application/json" />
             <!-- <iron-ajax id="ajax" url="http://localhost:3000/users" method="get" content-type="application/json"
@@ -181,15 +181,15 @@
             }
 
 
-            _checkIsMarried = (isMarried) => {
+            _checkIsMarried(isMarried) {
                 return isMarried ? 'Yes' : 'No'
             }
 
-            _getIndex = (i) => {
+            _getIndex(i) {
                 return i + 1;
             }
 
-            _changeValue = () => {
+            _changeValue() {
                 this.name = Math.random();
                 this.age = 34 + Math.random();
                 this.isMarried = !this.isMarried;
@@ -199,11 +199,11 @@
                 this.push('skillSet', { name: 'Angular', code: 2 });
             }
 
-            _toggle = () => {
+            _toggle() {
                 this.showButton = !this.showButton;
             }
 
-            _handleResponse = (event) => {
+            _handleResponse (event) {
                 console.log(event.detail.response);
                 switch (this.action) {
                     case 'List':
@@ -226,11 +226,11 @@
                 }
 
             }
-            _handleError = (event) => {
+            _handleError (event) {
                 console.log("Error", event)
             }
 
-            _handleEdit = (event) => {
+            _handleEdit (event) {
                 console.log(event.model.item);
                 const data = event.model.item;
                 this.$.modal.open();
@@ -238,27 +238,27 @@
                 this.sapId = data.sapId;
                 this.action = "Update";
             }
-            _handleDelete = (event) => {
+            _handleDelete (event) {
                 console.log("in delete", event.model.item);
                 this.makeAjaxCall(`http://localhost:3000/users/${event.model.item.id}`, "DELETE", null, 'Delete')
 
             }
-            _createForm = () => {
+            _createForm  ()  {
                 this.action = "Create";
                 this.$.modal.open();
             }
 
-            _hanldeSubmit = (event) => {
+            _hanldeSubmit (event){
                 console.log()
                 if (this.$.formModal.validate()) {
                     let postObj = { name: this.name, sapId: this.sapId };
-                    this.makeAjaxCall("http://localhost:3000/users/","POST", postObj, this.action)
+                    this.makeAjaxCall("http://localhost:3000/users/", "POST", postObj, this.action)
 
                 }
 
             }
 
-            makeAjaxCall = (url, method, postObj, action) => {
+            makeAjaxCall  (url, method, postObj, action) {
                 this.action = action;
                 const ajax = this.$.ajax;
                 ajax.url = url;

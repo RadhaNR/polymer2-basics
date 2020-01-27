@@ -10,32 +10,33 @@
 
 <dom-module id="app-routing">
     <template>
-        <app-location route={{route}} use-hash-as-path></app-location>
+        <app-location route="{{route}}" use-hash-as-path></app-location>
 
-        <app-route route={{route}} pattern="[[rootPath]]:page" data={{routeData}}></app-route>
-        <app-drawer-layout>
+        <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}"></app-route>
+        <app-drawer-layout>"
 
             <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
                 <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation" class="drawer-list">
 
-                    <!-- <a name="slot-elements" href="#[[rootPath]]slot-elements">Slot Element | </a>
+                    <a name="slot-elements" href="#[[rootPath]]slot-elements">Slot Element | </a>
                     <a name="template-constructor" href="#[[rootPath]]template-constructor"> template-constructor | </a>
                     <a name="base-class-inheritance" href="#[[rootPath]]base-class-inheritance">Base Class
                         Inheritance | </a>
                     <a name="override-base-class" href="#[[rootPath]]override-base-class">Override Base Class | </a>
-                    <a name="modify-base-class" href="#[[rootPath]]modify-base-class">Modify Base Class</a> -->
-                    <!-- <a name="app-slots" href='[[rootPath]]app-slots'>Slotte Element</a>
+                    <a name="modify-base-class" href="#[[rootPath]]modify-base-class">Modify Base Class</a>
+                    <a name="app-slots" href='[[rootPath]]app-slots'>Slotte Element</a>
                     <a name="temp-cons" href="[[rootPath]]temp-cons">Template Constructor</a>
                     <a name="inherit" href="[[rootPath]]inherit-child">inherit-from parent</a>
-                    <a name="custom-css-props" href="[[rootPath]]custom-css-props">custom-css-props</a> -->
+                    <a name="custom-css-props" href="[[rootPath]]custom-css-props">custom-css-props</a>
                     <a name="list-user" href="[[rootPath]]list-user">List Users | </a>
                     <a name="add-user" href="[[rootPath]]add-user">Add User | </a>
+                    <a name="pie-chart" href="[[rootPath]]pie-chart">Pie-chart</a>
                 </iron-selector>
             </app-drawer>
             <app-header-layout>
                 <iron-pages selected="{{page}}" attr-for-selected="name" role="main">
 
-                    <!-- <slot-elements name="slot-elements">
+                    <slot-elements name="slot-elements">
                         <p slot="para">Enter the data in paragraph1111</p>
                         <div slot="division">Enter the data in Division</div>
                         <span>This is span</span>
@@ -44,7 +45,7 @@
                     <child-class name="base-class-inheritance"></child-class>
                     <child-class1 name="override-base-class"></child-class1>
                     <child-class2 name="modify-base-class"></child-class2>
-                     -->
+
                     <slotted-elements name="app-slots">
                         <p slot="para1">This is paragraph 11111</p>
                         <p slot="para2">This is paragraph 22222</p>
@@ -56,6 +57,7 @@
                     <custom-css-props name="custom-css-props"></custom-css-props>
                     <list-user name="list-user" id="listUser"></list-user>
                     <add-user name="add-user" id="addUser"></add-user>
+                    <pie-chart name="pie-chart"></pie-chart>
 
                     <my-view404 name="my-view404"></my-view404>
 
@@ -91,11 +93,11 @@
                 window.addEventListener('refresh-list', this._handleRefrehList)
             }
 
-            _handleRefrehList=(event)=> {
+            _handleRefrehList  (event) {
                 console.log(event.type);
                 this.$.listUser._getData();
             }
-            _pageChanged = (page) => {
+            _pageChanged (page) {
                 let url;
                 switch (page) {
                     case 'slot-elements':
@@ -131,17 +133,20 @@
                     case 'add-user':
                         url = this.resolveUrl(`refresh-page/add-user.html`);
                         break;
+                    case 'pie-chart':
+                        url = this.resolveUrl(`pie-chart.html`);
+                        break;
                     default:
                         url = this.resolveUrl(page + '.html');
                 }
                 Polymer.importHref(
                     url,
                     null,
-                    this.show404,
+                    this.show404.bind(this),
                     true)
             }
 
-            show404 = () => {
+            show404() {
                 this.page = 'view404';
             }
 

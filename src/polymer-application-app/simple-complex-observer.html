@@ -11,7 +11,7 @@
         <paper-button raised on-click="_handleNameChange">Name Change</paper-button>
         <paper-button raised on-click="_handleLocationChange">Location Change</paper-button>
         <hr />
-        <template is="dom-repeat" items={{skillSet}}>
+        <template is="dom-repeat" items="{{skillSet}}">
             <p>[[index]], {{item.name}} -- {{item.sapId}}</p>
         </template>
         <paper-button raised on-click="_updateArray">Update Array</paper-button>
@@ -64,37 +64,37 @@
                 }
             }
 
-            _nameChanged = (firstName, lastName) => {
+            _nameChanged(firstName, lastName) {
                 console.log(firstName, lastName)
             }
 
-            _handleNameChange = () => {
+            _handleNameChange() {
                 this.firstName = Math.random();
                 this.lastName = Math.random();
             }
 
-            _handleLocationChange = () => {
+            _handleLocationChange() {
                 this.set('location.name', Math.random());
                 this.set('location.code', Math.random());
             }
 
-            _sapIdChanged = (newSapId, oldSapId) => {
+            _sapIdChanged(newSapId, oldSapId) {
                 console.log(newSapId, oldSapId)
             }
 
-            _locationChanged = (location) => {
+            _locationChanged(location) {
                 console.log('location', location)
             }
 
-            _handleChange = () => {
+            _handleChange() {
                 this.sapId = Math.random();
             }
 
-            _updateArray = () => {
+            _updateArray() {
                 this.push('skillSet', { name: Math.random(), sapId: Math.random() })
             }
 
-            _updateSkillSet=(skillSet)=> {
+            _updateSkillSet(skillSet) {
                 console.log('SkillSet: ', skillSet);
             }
         }

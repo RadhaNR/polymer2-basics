@@ -27,14 +27,14 @@
                 </tr>
             </thead>
             <tbody>
-                <template is="dom-repeat" items={{users}}>
+                <template is="dom-repeat" items="{{users}}">
                     <tr>
                         <td>[[_getIndex(index)]]</td>
                         <td>{{item.name}}</td>
                         <td>{{item.sapId}}</td>
                         <td>
-                            <iron-icon icon="clear" data-set$={{item}} on-click="_handleDelete"></iron-icon>
-                            <iron-icon icon="create" data-set$={{item}} on-click="_handleEdit"></iron-icon>
+                            <iron-icon icon="clear" data-set$="{{item}}" on-click="_handleDelete"></iron-icon>
+                            <iron-icon icon="create" data-set$="{{item}}" on-click="_handleEdit"></iron-icon>
                         </td>
                     </tr>
                 </template>
@@ -47,9 +47,9 @@
                 <iron-form id="form">
                     <form>
                         <paper-input type="number" label="Enter SapId" name="sapId" required
-                            error-message="Sapid is required" value={{sapId}}></paper-input>
+                            error-message="Sapid is required" value="{{sapId}}"></paper-input>
                         <paper-input label="ENter Name" name="name" required error-message="Name is required"
-                            value={{name}}></paper-input>
+                            value="{{name}}"></paper-input>
                     </form>
                 </iron-form>
                 <br />
@@ -63,7 +63,7 @@
 
         <iron-ajax id="ajax" handle-as="json" on-response="_handleResponse" on-error="_handleError"
             content-type="application/json"></iron-ajax>
-        <paper-toast id="toast" text={{message}}></paper-toast>
+        <paper-toast id="toast" text="{{message}}"></paper-toast>
 
     </template>
     <script>
@@ -112,7 +112,7 @@
                 this.$.add.addEventListener('click', this._handleCreate)
             }
 
-            _handleResponse = (event) => {
+            _handleResponse(event) {
                 switch (this.action) {
                     case 'List':
                         this.users = event.detail.response;
@@ -139,17 +139,17 @@
                 }
             }
 
-            _handleError = (event) => {
+            _handleError(event) {
                 console.log("in error", event);
                 this.message = event.detail.error;
                 this.$.toast.open()
             }
-            _handleCreate = (event) => {
+            _handleCreate(event) {
                 this.$.modal.open();
                 this.action = "Create";
             }
 
-            _handleSubmit = (event) => {
+            _handleSubmit(event) {
                 let url = "http://localhost:3000/users";
                 if (this.$.form.validate()) {
                     let obj = { name: this.name, sapId: this.sapId };
@@ -169,7 +169,7 @@
                 }
             }
 
-            _makeAjax = (url, method, postObj) => {
+            _makeAjax(url, method, postObj) {
                 const ajax = this.$.ajax;
                 ajax.method = method;
                 ajax.url = url;
@@ -178,7 +178,7 @@
 
             }
 
-            _handleDelete = (event) => {
+            _handleDelete(event) {
                 let confrm = confirm("Are you sure you want to delete ?");
                 if (confrm) {
                     this.action = 'Delete';
@@ -187,7 +187,7 @@
 
             }
 
-            _handleEdit = (event) => {
+            _handleEdit(event) {
                 let data = event.model.item; //event.target.dataset
 
                 this.$.modal.open();
@@ -197,7 +197,7 @@
                 this.action = 'Update';
             }
 
-            _getIndex = (index) => {
+            _getIndex(event) {
                 return index + 1;
             }
             // disconnectedCallback() {

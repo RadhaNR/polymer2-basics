@@ -16,7 +16,7 @@
                 console.log("another-child child element");
             }
 
-            _handleDelete = () => {
+            _handleDelete() {
                 this.dispatchEvent(new CustomEvent('delete-user', { detail: { id: 1 }, bubbles: true, composed: true }))
             }
         }

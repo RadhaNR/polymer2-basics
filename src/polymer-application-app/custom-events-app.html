@@ -25,17 +25,17 @@
             }
             ready() {
                 super.ready();
-                this.addEventListener('get-users', (event) => {
-                    console.log(event.detail)
-                });
+                // this.addEventListener('get-users', (function {
+                //     console.log(event.detail)
+                // });
                 this.addEventListener('delete-user', this.handleEvent);
             }
 
-            handleEvent = (event) => {
+            handleEvent(event) {
                 console.log(event.detail.id)
             }
 
-            _handleGestureEvents = (event) => {
+            _handleGestureEvents(event) {
                 console.log(event.detail.state);
                 switch (event.detail.state) {
                     case 'start':
@@ -51,7 +51,7 @@
                 }
             }
 
-            _handleGestureTapEvents = (event)=> {
+            _handleGestureTapEvents(event) {
                 console.log(event.type)
             }
         }
