@@ -22,7 +22,8 @@
     "babel": "^5.8.38",
     "svg-piechart": "^2.0.0",
     "iron-collapse": "PolymerElements/iron-collapse#2.1.0",
-    "paper-carousel": "Redbility/paper-carousel#^1.2.5"
+    "paper-carousel": "Redbility/paper-carousel#^1.2.5",
+    "google-chart": "GoogleWebComponents/google-chart#2.0.0"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",
